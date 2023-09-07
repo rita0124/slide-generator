@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 python-pptx = "*"
+asana = "*"
 
 [dev-packages]
 

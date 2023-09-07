@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "def2a5157202ae7fc4bcd4252a47d1180c3eaca802f1e9a1d3247b81740967e2"
+            "sha256": "23d77437369b56483fd818ba81306b0e366b08a9d141ddb4d4b1540f517289f3"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -16,6 +16,22 @@
         ]
     },
     "default": {
+        "asana": {
+            "hashes": [
+                "sha256:b49296148195e3eba89d099b2152b1b2c5131dbbb0f013e72a2108a0619c52fd",
+                "sha256:d5ce7f57f44af74e96e1ed92e3a1d590f9a620a7fa99e6e66abda15a40e9e123"
+            ],
+            "index": "pypi",
+            "version": "==4.0.10"
+        },
+        "certifi": {
+            "hashes": [
+                "sha256:539cc1d13202e33ca466e88b2807e29f4c13049d6d87031a3c110744495cb082",
+                "sha256:92d6037539857d8206b8f6ae472e8b77db8058fec5937a1ef3f54304089edbb9"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==2023.7.22"
+        },
         "lxml": {
             "hashes": [
                 "sha256:05186a0f1346ae12553d66df1cfce6f251589fea3ad3da4f3ef4e34b2d58c6a3",
@@ -186,6 +202,14 @@
             "markers": "python_version >= '3.7'",
             "version": "==9.5.0"
         },
+        "python-dateutil": {
+            "hashes": [
+                "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",
+                "sha256:961d03dc3453ebbc59dbdea9e4e11c5651520a876d0f4db161e8674aae935da9"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "version": "==2.8.2"
+        },
         "python-pptx": {
             "hashes": [
                 "sha256:38f8ee92dde31d24b4562560e61b0357e5d97ecf75c4352ae6616d5a32978654",
@@ -193,6 +217,22 @@
             ],
             "index": "pypi",
             "version": "==0.6.22"
+        },
+        "six": {
+            "hashes": [
+                "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
+                "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"
+            ],
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'",
+            "version": "==1.16.0"
+        },
+        "urllib3": {
+            "hashes": [
+                "sha256:8d22f86aae8ef5e410d4f539fde9ce6b2113a001bb4d189e0aed70642d602b11",
+                "sha256:de7df1803967d2c2a98e4b11bb7d6bd9210474c46e8a0401514e3a42a75ebde4"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==2.0.4"
         },
         "xlsxwriter": {
             "hashes": [

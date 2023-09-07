@@ -139,4 +139,5 @@ cython_debug/
 
 # Repository
 .aws_credentials
+config.ini
 ppt/
