@@ -1,2 +1,6 @@
 [Asana]
 asana_token = <replace-with-your-PAT>
+
+[Default]
+my_workspace_gid = <replace-with-your-common-use-gid>
+my_team_gid = <replace-with-your-common-use-gid>
