@@ -19,6 +19,7 @@ class Kanban():
         self.teams = None
         self.projects = None
         self.tasks = None
+        self.my_tasks = None
         self.get_all()
 
     def get_workspaces(self):
@@ -65,8 +66,47 @@ class Kanban():
         except ApiException as e:
             print("Exception when calling ProjectsApi->get_projects_in_team: %s\n" % e)
 
+    def get_tasks_in_project(self, project_gid=None):
+        try:
+            # create an instance of the API class
+            api_instance = asana.TasksApi(self.client)
+            if project_gid is None:
+                project_gid = self.default['my_project_gid']
+            # Get multiple tasks
+            api_response = api_instance.get_tasks_for_project(project_gid)
+            data = api_response.to_dict()['data']
+            # self.tasks = [ d['gid'] for d in data ]
+            self.tasks = {}
+            for d in data:
+                self.tasks[d['gid']] = d['name']
+        except ApiException as e:
+            print("Exception when calling TasksApi->get_tasks_in_project: %s\n" % e)
+
+    def get_tasks_in_project_details(self, project_gid=None, assignee_gid=None):
+        try:
+            # create an instance of the API class
+            api_instance = asana.TasksApi(self.client)
+            if project_gid is None:
+                project_gid = self.default['my_project_gid']
+            if assignee_gid is None:
+                assignee_gid = self.default['my_user_gid']
+            # Get multiple tasks
+            opt_fields = ["approval_status","assignee","assignee.name","start_at","start_on","name"]
+            api_response = api_instance.get_tasks_for_project(project_gid, opt_fields=opt_fields)
+            data = api_response.to_dict()['data']
+            # self.tasks = [ d['gid'] for d in data ]
+            self.my_tasks = {}
+            for d in data:
+                if d['assignee'] is None:
+                    continue
+                elif d['assignee']['gid'] == assignee_gid:
+                    self.my_tasks[d['gid']] = d
+        except ApiException as e:
+            print("Exception when calling TasksApi->get_tasks_in_project: %s\n" % e)
+
     def get_all(self):
         self.get_workspaces()
         self.get_teams_in_workspace()
         self.get_projects_in_team()
-        # self.get_tasks()
+        self.get_tasks_in_project()
+        self.get_tasks_in_project_details()
