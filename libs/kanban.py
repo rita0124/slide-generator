@@ -43,7 +43,6 @@ class Kanban():
             # Get multiple teams
             api_response = api_instance.get_teams_for_workspace(workspace_gid)
             data = api_response.to_dict()['data']
-            # self.teams = [ d['gid'] for d in data ]
             self.teams = {}
             for d in data:
                 self.teams[d['gid']] = d['name']
@@ -59,7 +58,6 @@ class Kanban():
             # Get multiple projects
             api_response = api_instance.get_projects_for_team(team_gid)
             data = api_response.to_dict()['data']
-            # self.projects = [ d['gid'] for d in data ]
             self.projects = {}
             for d in data:
                 self.projects[d['gid']] = d['name']
@@ -75,7 +73,6 @@ class Kanban():
             # Get multiple tasks
             api_response = api_instance.get_tasks_for_project(project_gid)
             data = api_response.to_dict()['data']
-            # self.tasks = [ d['gid'] for d in data ]
             self.tasks = {}
             for d in data:
                 self.tasks[d['gid']] = d['name']
@@ -91,10 +88,9 @@ class Kanban():
             if assignee_gid is None:
                 assignee_gid = self.default['my_user_gid']
             # Get multiple tasks
-            opt_fields = ["approval_status","assignee","assignee.name","start_at","start_on","name"]
+            opt_fields = ["approval_status","assignee","assignee.name","start_on","due_on","name","completed","completed_at"]
             api_response = api_instance.get_tasks_for_project(project_gid, opt_fields=opt_fields)
             data = api_response.to_dict()['data']
-            # self.tasks = [ d['gid'] for d in data ]
             self.my_tasks = {}
             for d in data:
                 if d['assignee'] is None:
@@ -104,9 +100,22 @@ class Kanban():
         except ApiException as e:
             print("Exception when calling TasksApi->get_tasks_in_project: %s\n" % e)
 
+    def clear_empty_dict(self, origin_dict):
+        to_delete = []
+        for key in list(origin_dict.keys()):
+            if origin_dict[key] is None:
+                to_delete.append(key)
+        for td in to_delete:
+            del origin_dict[td]
+
+    def clean_empty_values_in_my_tasks(self):
+        for k, v in self.my_tasks.items():
+            self.clear_empty_dict(self.my_tasks[k])
+
     def get_all(self):
         self.get_workspaces()
         self.get_teams_in_workspace()
         self.get_projects_in_team()
         self.get_tasks_in_project()
         self.get_tasks_in_project_details()
+        self.clean_empty_values_in_my_tasks()
