@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 python-pptx = "*"
 asana = "*"
+plotly = "*"
+pandas = "*"
+kaleido = "*"
 
 [dev-packages]
 

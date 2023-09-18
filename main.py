@@ -78,6 +78,17 @@ class PPTBoss():
                 print(f'略過組別: {team_name}')
                 continue
 
+    def gen_gantt_pages(self):
+        blank_layout = self.prs.slide_layouts[6]
+        slide = self.prs.slides.add_slide(blank_layout)
+
+        print(dir(slide.placeholders))
+        title = slide.shapes.title.text = "This is a gantt chart"
+        # for shape in slide.placeholders:
+        #     print('%d %s' % (shape.placeholder_format.idx, shape.name))
+        placeholder = slide.placeholders[13]
+        image = placeholder.insert_picture("甘特圖.png")
+
     def save_file(self, filename=None):
         if filename is None:
             filename = f'./ppt/材料組進度報告_{datetime.today().strftime("%Y%m%d")}.pptx'
@@ -88,6 +99,7 @@ if __name__ == '__main__':
     pptboss = PPTBoss()
     pptboss.read_from_template()
     pptboss.gen_prs_title_page()
-    pptboss.gen_prs_content_pages()
+    # pptboss.gen_prs_content_pages()
+    pptboss.gen_gantt_pages()
     pptboss.save_file()
     print('done')
