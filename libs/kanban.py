@@ -31,6 +31,7 @@ class Kanban():
             api_response = api_instance.get_workspaces()
             data = api_response.to_dict()['data']
             self.workspaces = [ d['gid'] for d in data ]
+            return self.workspaces
         except ApiException as e:
             print("Exception when calling WorkspacesApi->get_workspaces: %s\n" % e)
 
@@ -47,6 +48,7 @@ class Kanban():
             self.teams = {}
             for d in data:
                 self.teams[d['gid']] = d['name']
+            return self.teams
         except ApiException as e:
             print("Exception when calling TeamsApi->get_teams_for_workspace: %s\n" % e)
 
@@ -62,6 +64,7 @@ class Kanban():
             self.projects = {}
             for d in data:
                 self.projects[d['gid']] = d['name']
+            return self.projects
         except ApiException as e:
             print("Exception when calling ProjectsApi->get_projects_in_team: %s\n" % e)
 
@@ -77,6 +80,7 @@ class Kanban():
             self.users = {}
             for d in data:
                 self.users[d['gid']] = d['name']
+            return self.users
         except ApiException as e:
             print("Exception when calling UsersApi->get_users_in_team: %s\n" % e)
 
@@ -92,6 +96,7 @@ class Kanban():
             self.tasks = {}
             for d in data:
                 self.tasks[d['gid']] = d['name']
+            return self.tasks
         except ApiException as e:
             print("Exception when calling TasksApi->get_tasks_in_project: %s\n" % e)
 
@@ -110,11 +115,16 @@ class Kanban():
             self.my_tasks = {}
             for d in data:
                 if d['assignee'] is None:
-                    self.my_tasks[d['gid']] = {'name': '無名氏'}
+                    # print(d)
+                    # self.my_tasks[d['gid']] = d
+                    continue
                 elif d['assignee']['gid'] == assignee_gid:
                     self.my_tasks[d['gid']] = d
+                self.clean_empty_values_in_my_tasks()
+            # return self.clear_empty_dict(self.my_tasks)
+            return self.my_tasks
         except ApiException as e:
-            print("Exception when calling TasksApi->get_tasks_in_project: %s\n" % e)
+            print("Exception when calling TasksApi->get_tasks_in_project_details: %s\n" % e)
 
     def clear_empty_dict(self, origin_dict):
         to_delete = []
@@ -135,5 +145,3 @@ class Kanban():
         self.get_teams_in_workspace()
         self.get_projects_in_team()
         self.get_tasks_in_project()
-        # self.get_tasks_in_project_details()
-        # self.clean_empty_values_in_my_tasks()

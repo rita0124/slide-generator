@@ -4,7 +4,7 @@ import pandas as pd
 
 class Chart():
 
-    def __init__(self, df) -> None:
+    def __init__(self):
         self.dataframe = None
         self.fig = None
 
