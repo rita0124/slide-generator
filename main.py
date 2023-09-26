@@ -47,19 +47,11 @@ class PPTBoss():
                     to_insert = 'Y'
                     # to_insert = input(f'加入專案: {project_name} ?(Y?)')
                     if to_insert in 'YyYESyesYes':
-                        # self.kb.get_tasks_in_project(project_id)
                         for user in users.keys():
                             tasks_details = self.kb.get_tasks_in_project_details(assignee_gid=user, project_gid=project_id)
-                            # print(f'{user} ~~')
-                            # self.kb.get_tasks_in_project_details(assignee_gid=user, project_gid=project_id)
-                            # self.kb.clean_empty_values_in_my_tasks()
-                            # for task_id in self.kb.my_tasks.keys():
                             if tasks_details is None:
                                 continue
                             for task_id in tasks_details.keys():
-                                # print(f"{self.kb.my_tasks[task_id]}")
-                                # if self.kb.my_tasks[task_id]['name'] == '無名氏':
-                                #     break
                                 content_slide_layout = self.prs.slide_layouts[1]
                                 slide = self.prs.slides.add_slide(content_slide_layout)
                                 print(f'Add ... {count}')
@@ -67,32 +59,19 @@ class PPTBoss():
 
                                 title = slide.shapes[0]
                                 title.text = f"{tasks_details[task_id]['name']}"
-                                # title.text = f"{self.kb.my_tasks[task_id]['name']} - {self.kb.my_tasks[task_id]['assignee']['name']}"
 
                                 body_shape = slide.placeholders[1]
                                 tf = body_shape.text_frame
 
-                                # if 'start_on' not in tasks_details[task_id].keys():
                                 if 'start_on' not in tasks_details[task_id].keys():
                                     start_on = '???'
-                                    # start_on = '2000-01-01'
-                                    #pass  #continue
-                                # elif tasks_details[task_id]['start_on'] is None:
-                                #    continue
                                 else:
-                                    # print(tasks_details[task_id]['start_on'])
-                                    # start_on = tasks_details[task_id]['start_on'].strftime("%Y-%m-%d")
                                     start_on = tasks_details[task_id]['start_on']
 
-                                # if 'due_on' not in tasks_details[task_id].keys():
                                 if 'due_on' not in tasks_details[task_id].keys():
                                     due_on = '???'
-                                    # due_on = '2050-01-01'
                                     pass  #continue
-                                # elif tasks_details[task_id]['due_on'] is None:
-                                    # continue
                                 else:
-                                    # due_on = tasks_details[task_id]['due_on'].strftime("%Y-%m-%d")
                                     due_on = tasks_details[task_id]['due_on']
 
                                 assign_to = tasks_details[task_id]['assignee']['name']
