@@ -141,3 +141,4 @@ cython_debug/
 .aws_credentials
 config.ini
 ppt/
+users/mail.ini

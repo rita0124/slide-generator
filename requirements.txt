@@ -1,0 +1,17 @@
+asana==4.0.11
+certifi==2023.7.22
+kaleido==0.2.1
+lxml==4.9.3
+numpy==1.25.2
+packaging==23.1
+pandas==2.1.0
+Pillow==9.5.0
+plotly==5.17.0
+python-dateutil==2.8.2
+python-pptx==0.6.22
+pytz==2023.3.post1
+six==1.16.0
+tenacity==8.2.3
+tzdata==2023.3
+urllib3==2.0.4
+XlsxWriter==3.1.3

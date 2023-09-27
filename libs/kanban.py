@@ -1,3 +1,4 @@
+import os
 import asana
 import configparser
 from asana.rest import ApiException
@@ -11,7 +12,8 @@ class Kanban():
         configuration = asana.Configuration()
         config = configparser.ConfigParser()
         config.read('config.ini')
-        configuration.access_token = config['Asana']['asana_token']
+        #configuration.access_token = config['Asana']['asana_token']
+        configuration.access_token = os.environ['ASANA_TOKEN']
         self.default = config['Default']
         # create an instance of the API class
         self.client = asana.ApiClient(configuration)
