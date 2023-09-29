@@ -11,5 +11,6 @@ WORKDIR /source_code
 RUN mkdir pics libs ppt
 COPY requirements.txt config.ini main.py /source_code
 COPY ./libs /source_code/libs/
+COPY ./ppt /source_code/ppt/
 RUN pip install -r requirements.txt
 CMD ["python", "main.py"]

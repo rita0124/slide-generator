@@ -4,6 +4,7 @@ from pptx import Presentation
 from datetime import date, datetime
 from libs.kanban import Kanban
 from libs.chart import Chart
+from libs.sendmail import MailSender
 
 
 class PPTBoss():
@@ -15,6 +16,7 @@ class PPTBoss():
         self.kb = Kanban()
         self.prs = None
         self.chart = Chart()
+        self.attachment = None
 
     def read_from_template(self):
         with open('./ppt/材料組進度報告 - 樣板.pptx', 'rb') as f:
@@ -113,7 +115,7 @@ class PPTBoss():
 
     def gen_gantt_pages(self, chart_path=None):
         if chart_path is None:
-            chart_path = 'pics/甘特圖.png'
+            return
         title_text = re.split('_|\.', chart_path)[1]
         blank_layout = self.prs.slide_layouts[6]
         slide = self.prs.slides.add_slide(blank_layout)
@@ -127,6 +129,8 @@ class PPTBoss():
     def save_file(self, filename=None):
         if filename is None:
             filename = f'./ppt/材料組進度報告_{datetime.today().strftime("%Y%m%d")}.pptx'
+            self.attachment = filename
+        self.attachment = filename
         self.prs.save(filename)
 
 
@@ -137,4 +141,8 @@ if __name__ == '__main__':
     pptboss.gen_prs_content_pages()
     pptboss.gen_gantt_pages()
     pptboss.save_file()
-    print('done')
+    print('PPT gen completed')
+    mailsender = MailSender()
+    mailsender.set_attachment(filename=pptboss.attachment)
+    mailsender.send_mail()
+    print('Send mail completed')
