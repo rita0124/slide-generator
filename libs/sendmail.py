@@ -16,7 +16,8 @@ class MailSender:
         print("going to attach file")
         with open(filename, 'rb') as f:
             attachment = MIMEText(f.read(), 'base64', 'utf-8')
-            attachment.add_header('Content-Disposition', 'attachment', filename=filename)
+            attachment.add_header('Content-Disposition', 'attachment',
+                                  filename=os.path.basename(filename))
             self.content.attach(attachment)
         print("attach function completed")
 
@@ -35,7 +36,7 @@ class MailSender:
             receiver_str = os.environ['MAIL_RECEIVER']
         else:
             receiver_str = receiver_addr
-        self.receiver = re.findall(r"[\w\+]+@\w+[^,\s]*", receiver_str)
+        self.receiver = re.findall(r"[\.\w\+]+@\w+[^,\s]*", receiver_str)
         # Setup receiver(s)
         self.content['from'] = self.sender
         self.content['to'] = ','.join(self.receiver)

@@ -13,6 +13,8 @@ class Chart():
         self.dataframe = pd.DataFrame(tasks)
 
     def create_chart(self):
+        if len(self.dataframe) < 1:
+            return
         self.fig = px.timeline(self.dataframe, x_start="Start", x_end="End", y="Task", color="Assigned")
         # Tasks from top to bottom
         self.fig.update_yaxes(autorange = "reversed") 
